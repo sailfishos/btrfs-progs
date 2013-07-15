@@ -18,7 +18,7 @@ BuildRequires:  libacl-devel
 Btrfs userspace utilities, include btrfs, btrfs-debug-tree and etc.
 
 %package devel
-Summary: btrfs filesystem-specific libraries and headers
+Summary: Btrfs filesystem-specific libraries and headers
 Group:	 Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
@@ -26,7 +26,7 @@ Requires: %{name} = %{version}-%{release}
 %{summary}.
 
 %package docs
-Summary: documentation for btrfs-progs
+Summary: Documentation for btrfs-progs
 Group:   Documenation
 Requires: %{name} = %{version}-%{release}
 
@@ -44,6 +44,11 @@ prefix=%{_prefix} make %{?jobs:-j%jobs}
 cd btrfs-progs
 rm -rf %{buildroot}
 make mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
+rm %{buildroot}/%{_libdir}/libbtrfs.a
+
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -64,7 +69,6 @@ make mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/btrfs/*.h
-%{_libdir}/libbtrfs.a
 %{_libdir}/libbtrfs.so
 
 %files docs
