@@ -43,7 +43,7 @@ prefix=%{_prefix} make %{?jobs:-j%jobs}
 %install
 cd btrfs-progs
 rm -rf %{buildroot}
-make mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
+make bindir=%{buildroot}/%{_sbindir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 rm %{buildroot}/%{_libdir}/libbtrfs.a
 
 
@@ -52,17 +52,17 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/btrfs
-%{_bindir}/btrfs-convert
-%{_bindir}/btrfs-debug-tree
-%{_bindir}/btrfs-find-root
-%{_bindir}/btrfs-image
-%{_bindir}/btrfs-map-logical
-%{_bindir}/btrfs-show-super
-%{_bindir}/btrfs-zero-log
-%{_bindir}/btrfsck
-%{_bindir}/btrfstune
-%{_bindir}/mkfs.btrfs
+%{_sbindir}/btrfs
+%{_sbindir}/btrfs-convert
+%{_sbindir}/btrfs-debug-tree
+%{_sbindir}/btrfs-find-root
+%{_sbindir}/btrfs-image
+%{_sbindir}/btrfs-map-logical
+%{_sbindir}/btrfs-show-super
+%{_sbindir}/btrfs-zero-log
+%{_sbindir}/btrfsck
+%{_sbindir}/btrfstune
+%{_sbindir}/mkfs.btrfs
 %{_libdir}/libbtrfs.so.0
 %{_libdir}/libbtrfs.so.0.1
 
