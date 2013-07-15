@@ -1,0 +1,41 @@
+* Thu May 26 2011 Junfeng Dong <junfeng.dong@intel.com>- 0.19
+- Add btrfs-progs-0.19-gcc46.patch: add -Wno-unused-but-set-variable 
+  to make the package work with gcc 4.6.
+
+* Thu Mar 24 2011 Xin Zhong <xin.zhong@intel.com> - 0.19
+- Add -u option for btrfs-debug-tree to update fs uuid
+
+* Tue Mar 22 2011 Yang Chengwei <chengwei.yang@intel.com> - 0.19
+- update btrfs-pros to upstream git version v0.19-35
+
+* Mon Oct 18 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Add btrfs util to fix BMC#6920.
+
+* Mon Sep 6 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Add build-convert.patch to fix BMC#6307.
+
+* Mon Aug 30 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Add add-snapshot-destroy-ioctl.patch to fix BMC#5847
+
+* Tue Aug 10 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Install the commands into /sbin.
+
+* Tue Jul 6 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Add a patch to fix all the build warnings.
+
+* Mon Jun 21 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Exit silently with -p parameter. (BMC#582)
+
+* Mon May 10 2010 Zhu Yanhai <yanhai.zhu@linux.intel.com> - 0.19
+- Make btrfsck complain about the right thing. It dereferenced a wrong pointer before.
+  (BMC#1866)
+
+* Tue Sep 29 2009 Auke Kok <auke-jan.h.kok@intel.com> - 0.19
+- install /usr/bin/fsck.btrfs symlink
+
+* Tue Aug 18 2009 - Vivian Zhang <vivian.zhang@intel.com> - 0.19
+- add a patch to handle having / in labels, which solve the issue of installer trying to label volumes with their mountpoints
+
+* Mon Aug 10 2009 - Arjan van de Ven <arjan@linux.intel.com> - 0.19
+- initial packaging
+
