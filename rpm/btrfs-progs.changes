@@ -33,9 +33,9 @@
 * Tue Sep 29 2009 Auke Kok <auke-jan.h.kok@intel.com> - 0.19
 - install /usr/bin/fsck.btrfs symlink
 
-* Tue Aug 18 2009 - Vivian Zhang <vivian.zhang@intel.com> - 0.19
+* Tue Aug 18 2009 Vivian Zhang <vivian.zhang@intel.com> - 0.19
 - add a patch to handle having / in labels, which solve the issue of installer trying to label volumes with their mountpoints
 
-* Mon Aug 10 2009 - Arjan van de Ven <arjan@linux.intel.com> - 0.19
+* Mon Aug 10 2009 Arjan van de Ven <arjan@linux.intel.com> - 0.19
 - initial packaging
 
