@@ -13,6 +13,10 @@ BuildRequires:  pkgconfig(ext2fs)
 BuildRequires:  pkgconfig(blkid)
 BuildRequires:  lzo-devel
 BuildRequires:  libacl-devel
+BuildRequires:  zlib-devel
+BuildRequires:  libcom_err-devel
+BuildRequires:  libattr-devel
+BuildRequires:  e2fsprogs-devel
 
 %description
 Btrfs userspace utilities, include btrfs, btrfs-debug-tree and etc.
@@ -63,6 +67,7 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 %{_sbindir}/btrfsck
 %{_sbindir}/btrfstune
 %{_sbindir}/mkfs.btrfs
+%{_sbindir}/fsck.btrfs
 %{_libdir}/libbtrfs.so.0
 %{_libdir}/libbtrfs.so.0.1
 
