@@ -7,6 +7,7 @@ Group:      System/Base
 License:    GPLv2
 URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(e2p)
 BuildRequires:  pkgconfig(ext2fs)
@@ -38,14 +39,14 @@ Requires: %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}/%{name}
 
+# 0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
+%patch0 -p1
 %build
-cd btrfs-progs
 prefix=%{_prefix} make %{?jobs:-j%jobs}
 
 %install
-cd btrfs-progs
 rm -rf %{buildroot}
 make bindir=%{buildroot}/%{_sbindir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 rm %{buildroot}/%{_libdir}/libbtrfs.a
