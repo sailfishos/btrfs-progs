@@ -7,12 +7,18 @@ Group:      System/Base
 License:    GPLv2
 URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
 Source0:    %{name}-%{version}.tar.bz2
+Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
+Patch1:     0002-doc-remove-documentation-building.patch
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(e2p)
 BuildRequires:  pkgconfig(ext2fs)
 BuildRequires:  pkgconfig(blkid)
 BuildRequires:  lzo-devel
 BuildRequires:  libacl-devel
+BuildRequires:  zlib-devel
+BuildRequires:  libcom_err-devel
+BuildRequires:  libattr-devel
+BuildRequires:  e2fsprogs-devel
 
 %description
 Btrfs userspace utilities, include btrfs, btrfs-debug-tree and etc.
@@ -34,14 +40,17 @@ Requires: %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}/%{name}
+
+# 0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
+%patch0 -p1
+# 0002-doc-remove-documentation-building.patch
+%patch1 -p1
 
 %build
-cd btrfs-progs
 prefix=%{_prefix} make %{?jobs:-j%jobs}
 
 %install
-cd btrfs-progs
 rm -rf %{buildroot}
 make bindir=%{buildroot}/%{_sbindir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 rm %{buildroot}/%{_libdir}/libbtrfs.a
@@ -63,6 +72,7 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 %{_sbindir}/btrfsck
 %{_sbindir}/btrfstune
 %{_sbindir}/mkfs.btrfs
+%{_sbindir}/fsck.btrfs
 %{_libdir}/libbtrfs.so.0
 %{_libdir}/libbtrfs.so.0.1
 
@@ -73,8 +83,3 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 
 %files docs
 %defattr(-,root,root,-)
-%doc %{_mandir}/man8/btrfs-image.8.gz
-%doc %{_mandir}/man8/btrfs.8.gz
-%doc %{_mandir}/man8/btrfsck.8.gz
-%doc %{_mandir}/man8/mkfs.btrfs.8.gz
-
