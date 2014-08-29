@@ -8,6 +8,7 @@ License:    GPLv2
 URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
+Patch1:     0002-doc-remove-documentation-building.patch
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(e2p)
 BuildRequires:  pkgconfig(ext2fs)
@@ -43,6 +44,9 @@ Requires: %{name} = %{version}-%{release}
 
 # 0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
 %patch0 -p1
+# 0002-doc-remove-documentation-building.patch
+%patch1 -p1
+
 %build
 prefix=%{_prefix} make %{?jobs:-j%jobs}
 
@@ -79,8 +83,3 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 
 %files docs
 %defattr(-,root,root,-)
-%doc %{_mandir}/man8/btrfs-image.8.gz
-%doc %{_mandir}/man8/btrfs.8.gz
-%doc %{_mandir}/man8/btrfsck.8.gz
-%doc %{_mandir}/man8/mkfs.btrfs.8.gz
-
