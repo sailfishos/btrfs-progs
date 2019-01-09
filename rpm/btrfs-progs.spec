@@ -1,4 +1,3 @@
-
 Name:       btrfs-progs
 Summary:    Btrfs helper utilities
 Version:    0.19
@@ -31,12 +30,13 @@ Requires: %{name} = %{version}-%{release}
 %description devel
 %{summary}.
 
-%package docs
+%package doc
 Summary: Documentation for btrfs-progs
-Group:   Documenation
+Group:   Documentation
 Requires: %{name} = %{version}-%{release}
+Obsoletes: %{name}-docs
 
-%description docs
+%description doc
 %{summary}.
 
 %prep
@@ -48,13 +48,16 @@ Requires: %{name} = %{version}-%{release}
 %patch1 -p1
 
 %build
-prefix=%{_prefix} make %{?jobs:-j%jobs}
+prefix=%{_prefix} make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 make bindir=%{buildroot}/%{_sbindir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 rm %{buildroot}/%{_libdir}/libbtrfs.a
 
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
+        Documentation/*.txt
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -81,5 +84,6 @@ rm %{buildroot}/%{_libdir}/libbtrfs.a
 %{_includedir}/btrfs/*.h
 %{_libdir}/libbtrfs.so
 
-%files docs
+%files doc
 %defattr(-,root,root,-)
+%{_docdir}/%{name}-%{version}
