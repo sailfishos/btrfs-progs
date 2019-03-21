@@ -1,0 +1,33 @@
+From b3540f8ab3e3bf0d1c78b2d811f7b167a34c7589 Mon Sep 17 00:00:00 2001
+From: Matti Kosola <matti.kosola@jolla.com>
+Date: Thu, 21 Mar 2019 10:07:10 -0400
+Subject: [PATCH] In latest e2fsprogs definition of ext2_ext_attr_entry has
+ removed member e_value_block, as currently ext* doesn't support it set
+ anyway.
+
+So remove such check so that we can pass compile.
+
+https://patchwork.kernel.org/patch/10281327/
+
+Signed-off-by: Matti Kosola <matti.kosola@jolla.com>
+---
+ btrfs-convert.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/btrfs-convert.c b/btrfs-convert.c
+index 71b7bd6..fd19cbd 100644
+--- a/btrfs-convert.c
++++ b/btrfs-convert.c
+@@ -623,8 +623,7 @@ static int ext2_xattr_check_entry(struct ext2_ext_attr_entry *entry,
+ {
+ 	size_t value_size = entry->e_value_size;
+ 
+-	if (entry->e_value_block != 0 || value_size > size ||
+-	    entry->e_value_offs + value_size > size)
++	if (value_size > size || entry->e_value_offs + value_size > size)
+ 		return -EIO;
+ 	return 0;
+ }
+-- 
+1.8.3-rc3
+

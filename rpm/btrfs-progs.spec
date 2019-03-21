@@ -8,6 +8,7 @@ URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
 Patch1:     0002-doc-remove-documentation-building.patch
+Patch2:     0001-In-latest-e2fsprogs-definition-of-ext2_ext_attr_entr.patch
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(e2p)
 BuildRequires:  pkgconfig(ext2fs)
@@ -46,6 +47,8 @@ Obsoletes: %{name}-docs
 %patch0 -p1
 # 0002-doc-remove-documentation-building.patch
 %patch1 -p1
+# 0001-In-latest-e2fsprogs-definition-of-ext2_ext_attr_entr.patch
+%patch2 -p1
 
 %build
 prefix=%{_prefix} make %{?_smp_mflags}
