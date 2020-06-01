@@ -2,7 +2,6 @@ Name:       btrfs-progs
 Summary:    Btrfs helper utilities
 Version:    0.19
 Release:    1
-Group:      System/Base
 License:    GPLv2
 URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
 Source0:    %{name}-%{version}.tar.bz2
@@ -25,7 +24,6 @@ Btrfs userspace utilities, include btrfs, btrfs-debug-tree and etc.
 
 %package devel
 Summary: Btrfs filesystem-specific libraries and headers
-Group:	 Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
 %description devel
@@ -33,7 +31,6 @@ Requires: %{name} = %{version}-%{release}
 
 %package doc
 Summary: Documentation for btrfs-progs
-Group:   Documentation
 Requires: %{name} = %{version}-%{release}
 Obsoletes: %{name}-docs
 
@@ -55,7 +52,7 @@ prefix=%{_prefix} make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-make bindir=%{buildroot}/%{_sbindir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
+make bindir=%{buildroot}/%{_sbindir} libdir=%{buildroot}/%{_libdir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
 rm %{buildroot}/%{_libdir}/libbtrfs.a
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
