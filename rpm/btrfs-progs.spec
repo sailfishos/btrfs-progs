@@ -3,7 +3,7 @@ Summary:    Btrfs helper utilities
 Version:    0.19
 Release:    1
 License:    GPLv2
-URL:        http://www.kernel.org/pub/linux/kernel/people/mason/btrfs/
+URL:        https://github.com/sailfishos/btrfs-progs
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
 Patch1:     0002-doc-remove-documentation-building.patch
