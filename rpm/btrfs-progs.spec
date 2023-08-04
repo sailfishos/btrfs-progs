@@ -1,17 +1,16 @@
 Name:       btrfs-progs
 Summary:    Btrfs helper utilities
-Version:    0.19
+Version:    6.3.3
 Release:    1
 License:    GPLv2
 URL:        https://github.com/sailfishos/btrfs-progs
 Source0:    %{name}-%{version}.tar.bz2
-Patch0:     0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
-Patch1:     0002-doc-remove-documentation-building.patch
-Patch2:     0001-In-latest-e2fsprogs-definition-of-ext2_ext_attr_entr.patch
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(e2p)
 BuildRequires:  pkgconfig(ext2fs)
 BuildRequires:  pkgconfig(blkid)
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(python3)
 BuildRequires:  lzo-devel
 BuildRequires:  libacl-devel
 BuildRequires:  zlib-devel
@@ -29,35 +28,21 @@ Requires: %{name} = %{version}-%{release}
 %description devel
 %{summary}.
 
-%package doc
-Summary: Documentation for btrfs-progs
-Requires: %{name} = %{version}-%{release}
-Obsoletes: %{name}-docs
-
-%description doc
-%{summary}.
-
 %prep
-%setup -q -n %{name}-%{version}/%{name}
-
-# 0001-make-Fix-compilation-by-increasing-optimization-to-O.patch
-%patch0 -p1
-# 0002-doc-remove-documentation-building.patch
-%patch1 -p1
-# 0001-In-latest-e2fsprogs-definition-of-ext2_ext_attr_entr.patch
-%patch2 -p1
+%autosetup -n %{name}-%{version}/%{name}
 
 %build
-prefix=%{_prefix} make %{?_smp_mflags}
+./autogen.sh
+%configure \
+  --bindir=%{_sbindir} \
+  --disable-documentation\
+  --disable-libudev
+
+%make_build
 
 %install
-rm -rf %{buildroot}
-make bindir=%{buildroot}/%{_sbindir} libdir=%{buildroot}/%{_libdir} mandir=%{buildroot}/%{_mandir} prefix=%{buildroot}/%{_prefix} install
-rm %{buildroot}/%{_libdir}/libbtrfs.a
 
-mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
-install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
-        Documentation/*.txt
+%make_install
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -66,24 +51,21 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
 %defattr(-,root,root,-)
 %{_sbindir}/btrfs
 %{_sbindir}/btrfs-convert
-%{_sbindir}/btrfs-debug-tree
 %{_sbindir}/btrfs-find-root
 %{_sbindir}/btrfs-image
 %{_sbindir}/btrfs-map-logical
-%{_sbindir}/btrfs-show-super
-%{_sbindir}/btrfs-zero-log
+%{_sbindir}/btrfs-select-super
 %{_sbindir}/btrfsck
 %{_sbindir}/btrfstune
 %{_sbindir}/mkfs.btrfs
 %{_sbindir}/fsck.btrfs
-%{_libdir}/libbtrfs.so.0
-%{_libdir}/libbtrfs.so.0.1
+%{_libdir}/libbtrfs.so.*
+%{_libdir}/libbtrfsutil.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/btrfs/*.h
+%{_includedir}/btrfsutil.h
 %{_libdir}/libbtrfs.so
-
-%files doc
-%defattr(-,root,root,-)
-%{_docdir}/%{name}-%{version}
+%{_libdir}/libbtrfsutil.so
+%{_libdir}/pkgconfig/*.pc
