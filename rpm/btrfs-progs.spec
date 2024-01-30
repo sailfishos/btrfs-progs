@@ -36,7 +36,8 @@ Requires: %{name} = %{version}-%{release}
 %configure \
   --bindir=%{_sbindir} \
   --disable-documentation\
-  --disable-libudev
+  --disable-libudev \
+  --disable-static
 
 %make_build
 
