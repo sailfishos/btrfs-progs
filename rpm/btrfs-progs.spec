@@ -1,6 +1,6 @@
 Name:       btrfs-progs
 Summary:    Btrfs helper utilities
-Version:    6.3.3
+Version:    6.14
 Release:    1
 License:    GPLv2
 URL:        https://github.com/sailfishos/btrfs-progs
@@ -49,7 +49,6 @@ Requires: %{name} = %{version}-%{release}
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %{_sbindir}/btrfs
 %{_sbindir}/btrfs-convert
 %{_sbindir}/btrfs-find-root
@@ -64,7 +63,6 @@ Requires: %{name} = %{version}-%{release}
 %{_libdir}/libbtrfsutil.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/btrfs/*.h
 %{_includedir}/btrfsutil.h
 %{_libdir}/libbtrfs.so
